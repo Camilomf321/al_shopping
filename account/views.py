@@ -15,6 +15,9 @@ def register_user(request):
         email = request.POST['email']
         password = request.POST['password']
         password2 = request.POST['password2']
+        if username == '' or first_name == '' or last_name == '' or email == '' or password == '' or password2 == '':
+            messages.error(request, 'Los campos no pueden estar vacíos')
+            return redirect('account:register_user')
         if password == password2:
             if User.objects.filter(email=email).exists():
                 messages.error(request, 'El correo electrónico ya esta en uso')
