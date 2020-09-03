@@ -9,20 +9,27 @@
                 <div class="col-lg-5">
                     <div class="p-4">
                         <h3 class="text-center">Crear Cuenta</h3>
+                        {% include 'partials/_alert.html' %}
                         <form class="p-4" id="contactForm" novalidate="novalidate" method="post">
+                            {% csrf_token %}
                             <div class="form-group">
                                 <input type="text" class="form-control" aria-describedby="emailHelp" id="name"
-                                       name="name"
+                                       name="username"
+                                       placeholder="Usuario">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" aria-describedby="emailHelp" id="name"
+                                       name="first_name"
                                        placeholder="Nombre">
                             </div>
                             <div class="form-group">
                                 <input type="text" class="form-control" aria-describedby="emailHelp" id="name"
-                                       name="name"
+                                       name="last_name"
                                        placeholder="Apellido">
                             </div>
                             <div class="form-group">
                                 <input type="email" class="form-control" aria-describedby="emailHelp" id="name"
-                                       name="name"
+                                       name="email"
                                        placeholder="Correo Electrónico">
                             </div>
                             <div class="form-group">
@@ -35,7 +42,7 @@
                             </div>
                             <button type="submit" value="submit" class="site-btn primary-btn btn-block">Registrarse</button>
                             <div class="text-center mt-2">
-                                <a style="color: #7fad39;" href="{% url 'account:login' %}">¿Ya tienes una cuenta? ingresa</a>
+                                <a style="color: #7fad39;" href="{% url 'account:login_user' %}">¿Ya tienes una cuenta? ingresa</a>
                             </div>
                         </form>
                     </div>
