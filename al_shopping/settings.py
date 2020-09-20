@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'cart.apps.CartConfig',
     'shop.apps.ShopConfig',
     'home.apps.HomeConfig',
     'django.contrib.admin',
@@ -130,3 +131,5 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger'  # modifica el tag del mensaje para usar la clase de bootstrap
 }
 # LOGIN_URL = 'login'
+
+CART_SESSION_ID = 'cart'

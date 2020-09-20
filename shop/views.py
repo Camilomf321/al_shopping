@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
+from django.http import JsonResponse
+import json
 from .models import Category, Product
 # Create your views here.
 
@@ -21,3 +23,4 @@ def product_detail(request, id, slug):
     product_item = get_object_or_404(Product, id=id, slug=slug, available=True)
     context = {'product_item': product_item}
     return render(request, 'shop/product_detail.html', context)
+

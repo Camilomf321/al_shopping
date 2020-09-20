@@ -21,12 +21,30 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
+    <script type="text/javascript">
+        let user = '{{ request.user }}';
+
+        function getCsrfToken(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                let cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    let cookie = cookies[i].trim();
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        let csrftoken = getCsrfToken('csrftoken');
+    </script>
 </head>
 <body>
-<!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
+
 
 <!-- Humberger Begin -->
 <div class="humberger__menu__overlay"></div>
@@ -37,7 +55,7 @@
     <div class="humberger__menu__cart">
         <ul>
             <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+            <li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
         </ul>
         <div class="header__cart__price">item: <span>$150.00</span></div>
     </div>
@@ -122,9 +140,13 @@
                                     <div><i class="fa fa-user"></i> Mi cuenta</div>
                                     <span class="arrow_carrot-down"></span>
                                     <ul style="background-color: #FFFFFF">
-                                        <li style="border-bottom: 1px solid #ccc"><a style="color: #000000" href="#">Perfil</a></li>
-                                        <li style="border-bottom: 1px solid #ccc"><a style="color: #000000" href="#">Favoritos</a></li>
-                                        <li style="border-bottom: 1px solid #ccc"><a style="color: #000000" href="{% url 'account:logout_user' %}">Salir</a></li>
+                                        <li style="border-bottom: 1px solid #ccc"><a style="color: #000000" href="#">Perfil</a>
+                                        </li>
+                                        <li style="border-bottom: 1px solid #ccc"><a style="color: #000000" href="#">Favoritos</a>
+                                        </li>
+                                        <li style="border-bottom: 1px solid #ccc"><a style="color: #000000"
+                                                                                     href="{% url 'account:logout_user' %}">Salir</a>
+                                        </li>
                                     </ul>
                                 </div>
                             {% else %}
@@ -172,7 +194,7 @@
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        <li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
                     </ul>
                     <div class="header__cart__price">Total: <span>$150.000</span></div>
                 </div>
@@ -317,5 +339,6 @@
 <script src="{% static 'js/mixitup.min.js' %}"></script>
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>

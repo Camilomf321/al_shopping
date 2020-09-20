@@ -52,7 +52,7 @@
                                         <td class="shoping__cart__quantity">
                                             <div class="quantity">
                                                 <div class="pro-qty">
-                                                    <input type="text" value="{{ item.quantity }}">
+                                                    <input type="text" id="quantity-input" value="{{ item.quantity }}">
                                                 </div>
                                             </div>
                                         </td>
@@ -60,7 +60,7 @@
                                             {{ item.total_price|intcomma }}
                                         </td>
                                         <td class="shoping__cart__item__close">
-                                            <a href="{% url "cart:cart_remove" product.id %}"><span class="icon_close"></span></a>
+                                            <button data-product="{{ product.id }}" data-action="remove" class="remove-cart" ><span class="icon_close "></span></button>
                                         </td>
                                     </tr>
                                 {% endwith %}
