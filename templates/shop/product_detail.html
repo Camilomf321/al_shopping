@@ -50,12 +50,14 @@
                         <p>{{ product_item.description }}</p>
                         <div class="product__details__quantity">
                             <div class="quantity">
-                                <div class="pro-qty">
+                                <div class="pro-qty" id="pro-qty">
+
                                     <input id="quantity-input" type="text" value="1">
+
                                 </div>
                             </div>
                         </div>
-                        <button style="border: none" data-product="{{ product_item.id }}" data-action="add" class="primary-btn add-btn add-cart">Agregar al carrito></button>
+                        <button style="border: none" data-product="{{ product_item.id }}"  class="primary-btn add-btn add-cart">Agregar al carrito</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             {% if product_item.weight %}

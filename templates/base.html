@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load humanize %}
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -190,13 +191,27 @@
                     </ul>
                 </nav>
             </div>
+
+
+
+
+
+
+
+
+
+
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                        <li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                        {% with total_items=cart|length %}
+                            <li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-bag"></i> <span>{% if cart|length > 0 %}{{ total_items }}{% else %}0{% endif %}</span></a>
+                            </li>
+
                     </ul>
-                    <div class="header__cart__price">Total: <span>$150.000</span></div>
+                    <div class="header__cart__price">Total: <span>${{ cart.get_total_price|intcomma }}</span></div>
+                {% endwith %}
                 </div>
             </div>
         </div>
