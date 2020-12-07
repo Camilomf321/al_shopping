@@ -4,22 +4,32 @@ import json
 from django.http import JsonResponse
 from shop.models import Product
 from .cart import Cart
+from .forms import CartAddProductForm
 
 
-def cart_add(request):
+def cart_add(request, product_id):
+    # data = json.loads(request.body)
+    # product_id = data['productId']
     if request.method == 'POST':
-        data = json.loads(request.body)
-        product_id = data['productId']
         # action = data['action']
         # quantity = data['quantity']
+
         cart = Cart(request)
         product = get_object_or_404(Product, id=product_id)
-        cart.add(product=product, quantity=3)
-        return JsonResponse({'status': 'ok'})
+        form = CartAddProductForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            cart.add(product=product, quantity=cd['quantity'], update_quantity=cd['update'])
+        # return JsonResponse({'status': 'ok'})
+        return redirect('cart:cart_detail')
 
 
 def cart_detail(request):
     cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(
+            initial={'quantity': item['quantity'],
+                     'update': True})
     return render(request, 'cart/cart_detail.html', {'cart': cart})
 
 

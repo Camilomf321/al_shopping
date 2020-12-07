@@ -25,68 +25,73 @@
         <div class="container">
             {% if cart %}
                 <div class="row">
-                <div class="col-lg-12">
-                    <div class="shoping__cart__table">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th class="shoping__product">Productos</th>
-                                <th>Precio</th>
-                                <th>Cantidad</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
+                    <div class="col-lg-12">
+                        <div class="shoping__cart__table">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th class="shoping__product">Productos</th>
+                                    <th>Precio</th>
+                                    <th>Cantidad</th>
+                                    <th>Total</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
 
-                             {% for item in cart %}
-                                {% with product=item.product %}
-                                    <tr>
-                                        <td class="shoping__cart__item">
-                                            <img width="150" height="150"
-                                                 src="{% if product.photo %}{{ product.photo.url }}{% endif %}"
-                                                 alt="{{ product.name }} imagen">
-                                            <h5>{{ product.name }}</h5>
-                                        </td>
-                                        <td class="shoping__cart__price">
-                                            {{ product.price|intcomma }}
-                                        </td>
-                                        <td class="shoping__cart__quantity">
-                                            <div class="quantity">
-                                                <div class="pro-qty">
-                                                    <input type="text" id="quantity-input" value="{{ item.quantity }}">
+                                {% for item in cart %}
+                                    {% with product=item.product %}
+                                        <tr>
+                                            <td class="shoping__cart__item">
+                                                <img width="150" height="150"
+                                                     src="{% if product.photo %}{{ product.photo.url }}{% endif %}"
+                                                     alt="{{ product.name }} imagen">
+                                                <h5>{{ product.name }}</h5>
+                                            </td>
+                                            <td class="shoping__cart__price">
+                                                {{ product.price|intcomma }}
+                                            </td>
+                                            <td class="shoping__cart__quantity">
+                                                <div class="quantity">
+                                                        <form action="{% url "cart:cart_add" product.id %}" method="post">
+                                                            {% csrf_token %}
+                                                            {{ item.update_quantity_form.quantity }}
+                                                            {{ item.update_quantity_form.update }}
+                                                            <input type="submit" style="border: none" value="Actualizar" class="primary-btn add-btn add-cart ">
+
+                                                        </form>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td class="shoping__cart__total">
-                                            {{ item.total_price|intcomma }}
-                                        </td>
-                                        <td class="shoping__cart__item__close">
-                                            <button data-product="{{ product.id }}" data-action="remove" class="remove-cart" ><span class="icon_close "></span></button>
-                                        </td>
-                                    </tr>
-                                {% endwith %}
-                            {% endfor %}
+                                            </td>
+                                            <td class="shoping__cart__total">
+                                                {{ item.total_price|intcomma }}
+                                            </td>
+                                            <td class="shoping__cart__item__close">
+                                                <button style="border: none;" data-product="{{ product.id }}" data-action="remove"
+                                                        class="remove-cart btn-danger"><span class="icon_close " style="color: white"></span></button>
+                                            </td>
+                                        </tr>
+                                    {% endwith %}
+                                {% endfor %}
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-            </div>
-               {% else %}
-               <div class="row">
-                <div class="col-lg-12 mb-5 d-flex justify-content-center align-content-center">
-                    <h3 class="text-center text-danger mr-1">No hay productos en el carrito todavia, puede comprar </h3> <a class="primary-btn" href="{% url 'shop:product_list' %}">Aqui</a>
+            {% else %}
+                <div class="row">
+                    <div class="col-lg-12 mb-5 d-flex justify-content-center align-content-center">
+                        <h3 class="text-center text-danger mr-1">No hay productos en el carrito todavia, puede
+                            comprar </h3> <a class="primary-btn" href="{% url 'shop:product_list' %}">Aqui</a>
+                    </div>
                 </div>
-               </div>
             {% endif %}
 
             <div class="row">
                 <div class="col-lg-12">
                     <div class="shoping__cart__btns">
                         <a href="{% url 'shop:product_list' %}" class="primary-btn cart-btn">CONTINUAR COMPRANDO</a>
-                        <a href="#" class="primary-btn cart-btn cart-btn-right"><span class="icon_loading"></span>
-                            Actualizar Carrito</a>
+
                     </div>
                 </div>
                 <div class="col-lg-6">

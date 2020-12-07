@@ -48,16 +48,14 @@
                         </div>
                         <div class="product__details__price">${{ product_item.price|intcomma }} COP</div>
                         <p>{{ product_item.description }}</p>
-                        <div class="product__details__quantity">
-                            <div class="quantity">
-                                <div class="pro-qty" id="pro-qty">
-
-                                    <input id="quantity-input" type="text" value="1">
-
-                                </div>
-                            </div>
+                        <div class="product__details__quantity mt-3">
+                            <form action="{% url 'cart:cart_add' product_item.id %}" method="post" style="display: inline-block;  ">
+                                {% csrf_token %}
+                                {{ form.quantity }}
+                                {{ form.update }}
+                                <button style="border: none"   class="primary-btn add-btn add-cart ">Agregar al carrito</button>
+                            </form>
                         </div>
-                        <button style="border: none" data-product="{{ product_item.id }}"  class="primary-btn add-btn add-cart">Agregar al carrito</button>
                         <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                         <ul>
                             {% if product_item.weight %}

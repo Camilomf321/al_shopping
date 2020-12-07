@@ -3,6 +3,7 @@ from django.core.paginator import Paginator
 from django.http import JsonResponse
 import json
 from .models import Category, Product
+from cart.forms import CartAddProductForm
 # Create your views here.
 
 
@@ -20,7 +21,8 @@ def product_list(request):
 
 
 def product_detail(request, id, slug):
+    form = CartAddProductForm()
     product_item = get_object_or_404(Product, id=id, slug=slug, available=True)
-    context = {'product_item': product_item}
+    context = {'product_item': product_item, 'form': form}
     return render(request, 'shop/product_detail.html', context)
 
