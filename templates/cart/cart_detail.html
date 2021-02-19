@@ -98,8 +98,9 @@
                     <div class="shoping__continue">
                         <div class="shoping__discount">
                             <h5>Codigo de Descuento</h5>
-                            <form action="#">
-                                <input type="text" placeholder="Ingresa tu codigo de cupón">
+                            <form action="{% url "coupons:apply" %}" method="post">
+                                {% csrf_token %}
+                                {{ coupon_apply_form }}
                                 <button type="submit" class="site-btn">APLICAR CUPÓN</button>
                             </form>
                         </div>
@@ -112,7 +113,7 @@
                             <li>Subtotal <span>{{ cart.get_total_price|intcomma }} COP</span></li>
                             <li>Total <span>{{ cart.get_total_price|intcomma }} COP</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceder a Pagar</a>
+                        <a href="{% url 'orders:create_order' %}" class="primary-btn">Proceder a Pagar</a>
                     </div>
                 </div>
             </div>

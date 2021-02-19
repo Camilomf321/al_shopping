@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% block content %}
+    <!-- Checkout Section Begin -->
+    <section class="mt-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2 class="text-center m-3">Detalles de la compra</h2>
+                </div>
+            </div>
+            <div class="checkout__form mt-5">
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-lg-7 col-md-6">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Nombre<span>*</span></p>
+                                        {{ form.first_name }}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Apellido<span>*</span></p>
+                                        {{ form.last_name }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout__input">
+                                <p>Correo Electronico<span>*</span></p>
+                                {{ form.email }}
+                            </div>
+                            <div class="checkout__input">
+                                <p>Dirección<span>*</span></p>
+                                {{ form.address }}
+                            </div>
+                            <div class="checkout__input">
+                                <p>Código Postal<span>*</span></p>
+                                {{ form.postal_code }}
+                            </div>
+                            <div class="checkout__input">
+                                <p>Ciudad<span>*</span></p>
+                                {{ form.city }}
+                            </div>
+                        </div>
+                        <div class="col-lg-5 col-md-6">
+                            <div class="checkout__order">
+                                <h4>Tu orden</h4>
+                                <div class="checkout__order__products" style="display: flex; justify-content: space-between">Productos <span>Cantidad</span><span>Total</span></div>
+                                <ul>
+                                    {% for item in cart %}
+                                        <li style="display: flex; justify-content: space-between">{{ item.product.name }} <span>{{ item.quantity }}</span> <span>${{ item.total_price|intcomma }}</span></li>
+                                    {% endfor %}
+
+                                </ul>
+                                <div class="checkout__order__total">Total <span>{{ cart.get_total_price|intcomma }}</span></div>
+
+                                <button type="submit" class="site-btn">Pagar</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+{% endblock %}
