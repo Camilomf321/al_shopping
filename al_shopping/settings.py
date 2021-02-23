@@ -139,3 +139,5 @@ MESSAGE_TAGS = {
 # LOGIN_URL = 'login'
 
 CART_SESSION_ID = 'cart'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
