@@ -47,12 +47,11 @@ class Cart(object):
         """
         product_id = str(product.id)
         if product_id not in self.cart:
-            self.cart[product_id] = {'quantity': 0,
+            self.cart[product_id] = {'quantity': quantity,
                                      'price': str(product.price)}
         if update_quantity:
             self.cart[product_id]['quantity'] = quantity
-        else:
-            self.cart[product_id]['quantity'] += quantity
+
         self.save()
 
     def save(self):
@@ -75,7 +74,7 @@ class Cart(object):
         iterate over the items in the cart and get products from database
         :return:
         """
-        products_id = self.cart.keys()
+        products_id = self.cart.keys()  # return a list with products id in the cart
         # get the product objects and add them to the cart
         products = Product.objects.filter(id__in=products_id)
 
