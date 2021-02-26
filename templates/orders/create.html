@@ -10,7 +10,7 @@
                 </div>
             </div>
             <div class="checkout__form mt-5">
-                <form action="#" method="post">
+                <form action="{% url 'orders:create_order' %}" method="post">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-lg-7 col-md-6">
