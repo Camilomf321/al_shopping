@@ -40,10 +40,11 @@ def create_payment(request):
 
 
 def cancel_payment(request):
-    return render(request, 'payments/success.html')
+    return render(request, 'payments/canceled.html')
 
 
 def success_payment(request):
-    return render(request, 'payments/canceled.html')
+    return render(request, 'payments/success.html')
+
 
 
