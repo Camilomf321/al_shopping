@@ -43,6 +43,9 @@
 
         let csrftoken = getCsrfToken('csrftoken');
     </script>
+{% block head %}
+
+{% endblock %}
 </head>
 <body>
 
@@ -84,7 +87,8 @@
             </li>
             <li class="{% if request.path == '/shop/products/' %}active {% endif %} "><a
                     href="{% url 'shop:product_list' %}">Productos</a></li>
-            <li class="{% if request.path == '/blog/' %}active {% endif %} "><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+            <li class="{% if request.path == '/blog/' %}active {% endif %} "><a
+                    href="{% url 'blog:blog_list' %}">Blog</a></li>
             <li class="{% if request.path == '/contact/' %}active {% endif %} "><a
                     href="{% url 'home:contact' %}">Contacto</a></li>
         </ul>
@@ -185,33 +189,28 @@
                         </li>
                         <li class="{% if request.path == '/shop/products/' %}active {% endif %} "><a
                                 href="{% url 'shop:product_list' %}">Productos</a></li>
-                        <li class="{% if request.path == '/blog/' %}active {% endif %} "><a href="{% url 'blog:blog_list' %}">Blog</a></li>
+                        <li class="{% if request.path == '/blog/' %}active {% endif %} "><a
+                                href="{% url 'blog:blog_list' %}">Blog</a></li>
                         <li class="{% if request.path == '/contact/' %}active {% endif %} "><a
                                 href="{% url 'home:contact' %}">Contacto</a></li>
                     </ul>
                 </nav>
             </div>
-
-
-
-
-
-
-
-
-
+        
 
             <div class="col-lg-3">
                 <div class="header__cart">
                     <ul>
                         <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
                         {% with total_items=cart|length %}
-                            <li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-bag"></i> <span>{% if cart|length > 0 %}{{ total_items }}{% else %}0{% endif %}</span></a>
+                            <li><a href="{% url 'cart:cart_detail' %}"><i class="fa fa-shopping-bag"></i>
+                                <span>{% if cart|length > 0 %}{{ total_items }}{% else %}0{% endif %}</span></a>
                             </li>
 
-                    </ul>
-                    <div class="header__cart__price">Total: <span>${{ cart.get_total_price|intcomma }}</span></div>
-                {% endwith %}
+                            </ul>
+                            <div class="header__cart__price">Total: <span>${{ cart.get_total_price|intcomma }}</span>
+                            </div>
+                        {% endwith %}
                 </div>
             </div>
         </div>
@@ -355,8 +354,6 @@
 <script src="{% static 'js/owl.carousel.min.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script src="{% static 'js/cart.js' %}"></script>
-{% block js %}
 
-{% endblock %}
 </body>
 </html>
